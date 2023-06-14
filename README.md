@@ -37,8 +37,9 @@ We extended the syntax analyzer built in project 10 into a full-scale Jack compi
 ## Project 12: Jack Operating System
 Implemented parts of the Jack OS.
 
+## Acknowledgments
+Prof. Shimon Schocken and Mr. Ran Navok
+
 Please refer to nand2tetris.org for more detailed information, including source code, documentation, and any additional resources that may be available.
 
-## Acknowledgments
-Prof. Shimon Schocken
-Mr. Ran Navok
+
