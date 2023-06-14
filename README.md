@@ -37,9 +37,15 @@ We extended the syntax analyzer built in project 10 into a full-scale Jack compi
 ## Project 12: Jack Operating System
 Implemented parts of the Jack OS.
 
-## Acknowledgments
-Prof. Shimon Schocken and Mr. Ran Navok
+Please refer to the respective project folders for more detailed information, including source code, documentation, and any additional resources that may be available.
 
-Please refer to nand2tetris.org for more detailed information, including source code, documentation, and any additional resources that may be available.
+## Prerequisites
+Basic knowledge of computer systems and programming concepts.
+
+## Usage
+Each project folder contains its own set of instructions and documentation for running and testing the project components.
+
+## Acknowledgments
+The NAND2Tetris course is developed by Noam Nisan and Shimon Schocken and is available on the official course website: nand2tetris.org. Course instructor Mr. Ran Navok
 
 
