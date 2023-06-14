@@ -1,0 +1,186 @@
+class Game {
+     field Birds bird;
+     field Blocks block;
+     field Blocks block1;
+     static boolean exit;
+     field int location;
+     field int direction;
+     static int key;
+     static int lastKey;
+     static int blockCount;
+     static int blockTopLocation;
+     static int blockBottomLocation;
+     static int score;
+     static int highscore;
+     static int delay;
+
+    /**constructs a new game*/
+    constructor Game new() {
+        let location = 4074;
+        let bird = Birds.new(location);
+        let direction = 0;
+        let delay = 5;
+        let score = 0;
+        let highscore = 0;
+        return this;
+    }
+
+    /** moves the bird up or down*/
+    method void moveBird() {
+        if (direction = 1) { //move down
+            do bird.erase(location);
+            let location = location + 32; 
+            let exit =  bird.draw(location);
+            do Sys.wait(delay);
+        } 
+        if (direction = 2) { //move up
+            do bird.erase(location);
+            let location = location - 128; //jump by 4 pixels
+            let exit = bird.draw(location);
+            do Sys.wait(delay-2);
+            } 
+        
+        return;
+    
+    }
+
+    /** Check if you press spacebar*/
+    method void keyPressed() {
+        let key = Keyboard.keyPressed();
+
+        if ((key = 32) & (~(lastKey = 32))) {
+            let direction = 2;
+            do moveBird();
+            do moveBird();
+            do moveBird();
+            do moveBird();
+            do moveBird();
+            let direction = 1;
+        }
+        let lastKey = key;
+        return;
+    }
+
+    /**Checks if the bird is touching the blocks.
+     *end game if it is touching.
+     */
+    method void isTouchingBlock() {
+        //checks if the Bird overlaps the y value of the blocks 
+        if ((location < Math.multiply(block.getTopY(), 32)) | ((location + 640) > Math.multiply(block.getBottomY(), 32))) {
+            //checks if the bird overlaps the x value of the blocks 
+            if (((block.getX() > 160) & (block.getX() < 196)) | (((block.getX() + 36) > 160) & ((block.getX() + 36) < 196))) {
+            let exit = true;
+            }
+        }
+        if ((location < Math.multiply(block1.getTopY(), 32)) | ((location + 640) > Math.multiply(block1.getBottomY(), 32))) {
+            if (((block1.getX() > 160) & (block1.getX() < 196)) | (((block1.getX() + 36) > 160) & ((block1.getX() + 36) < 196))) {
+            let exit = true;
+            }
+        }
+        return;
+    }
+
+    /**runs the game */
+    method void run() {
+        let blockCount = 0;
+        let block = Blocks.new(100);
+        let block1 = Blocks.new(30);
+        //print Score: 0 in the top left corner
+        do Output.moveCursor(0,0);
+        do Output.printString("Score: ");
+        do Output.printInt(score);
+
+        while (~exit) {
+            do moveBlocks();
+            do keyPressed(); //space-bar pressed - move up
+            do isTouchingBlock(); //check if the bird is touching a block
+            do moveBird(); //continiously fall
+            do isTouchingBlock();
+            do updateScore(); //update the score
+            let blockCount = blockCount + 1;
+        }
+        do updateHighscore();
+        return;
+    }
+
+    /**moves the blocks continously */
+    method void moveBlocks() {
+        // Add the first block.
+        if ((Utils.mod(blockCount, 350) = 0) & ~(Utils.mod(blockCount, 525) = 0)){
+            do block.reset(blockCount+5);
+        }
+        // Adds the second block.
+        if (Utils.mod(blockCount, 525) = 0){
+            do block1.reset(blockCount+5);      
+        }
+        // Only runs at the beginning of the game when theres one block.
+        if (blockCount < 175 ){
+            do block.moveLeft();
+                
+        }else {
+            do block.moveLeft();
+            do block1.moveLeft();
+        }
+        do Sys.wait(delay);
+        return;
+    }
+
+    /*Resets the game.*/
+    method void reset() {
+        let exit = false;
+        let location = 4074;
+        do bird.draw(location);
+        let score = 0;
+        return;
+    }
+
+    /**return highscore*/
+    method int getScore() {
+        return score;
+    }
+
+    /** Updates the score when passin through a Blocks*/
+    method void updateScore() { 
+        //Checks if the bird went through the first block.
+        if ((block.getX() + 36) = 159){
+            let score = score + 1;
+            if(score > 9) { //score 10+ backspace twice
+                do Output.backSpace();
+            }
+            do Output.backSpace();
+            do Output.printInt(score);
+        }
+        //Checks if the bird went through the second block.
+        if ((block1.getX() + 36) = 159){
+            let score = score + 1;
+            if(score > 9) {
+                do Output.backSpace();
+            }
+            do Output.backSpace();
+            do Output.printInt(score);
+        }
+        return;
+    }
+
+    /**updates highscore if neccessary*/
+    method void updateHighscore() {
+        if (score > highscore) {
+            let highscore = score;
+        }
+        return;
+    }
+
+    /**return highscore*/
+    method int getHighscore() {
+        return highscore;
+    }
+
+    /**disposes this game*/
+    method void dispose() {
+        do Memory.deAlloc(this);
+        do bird.dispose();
+        do block.dispose();
+        do block1.dispose();
+        return;
+    }
+}

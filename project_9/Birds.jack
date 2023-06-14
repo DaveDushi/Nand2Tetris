@@ -1,0 +1,115 @@
+class Birds {
+    field int memAddress;
+
+    /**constructs bird and draws it on the screen in the location*/ 
+    constructor Birds new(int location) {
+        do draw(location);
+        return this;
+    }
+
+    /**draws a bird to the screen on the location and returns False if succeeded anf TRUE if failed*/
+    method boolean draw(int location) {
+        var int memAddress; 
+        if ((location > 10) & (location < 7530)) {
+            let memAddress = 16384+location;
+            // column 0
+            do Memory.poke(memAddress, 16128);
+            do Memory.poke(memAddress +32, -32);
+            do Memory.poke(memAddress +64, -8);
+            do Memory.poke(memAddress +96, 124);
+            do Memory.poke(memAddress +128, 30);
+            do Memory.poke(memAddress +160, 14);
+            do Memory.poke(memAddress +192, 7);
+            do Memory.poke(memAddress +224, 8199);
+            do Memory.poke(memAddress +256, 28675);
+            do Memory.poke(memAddress +288, 8195);
+            do Memory.poke(memAddress +320, 3);
+            do Memory.poke(memAddress +352, 3);
+            do Memory.poke(memAddress +384, 3);
+            do Memory.poke(memAddress +416, 32643);
+            do Memory.poke(memAddress +448, 16131);
+            do Memory.poke(memAddress +480, 7686);
+            do Memory.poke(memAddress +512, 3100);
+            do Memory.poke(memAddress +544, 56);
+            do Memory.poke(memAddress +576, -16);
+            do Memory.poke(memAddress +608, -32);
+            do Memory.poke(memAddress +640, 16128);
+            // column 1
+            do Memory.poke(memAddress +65, 3);
+            do Memory.poke(memAddress +97, 7);
+            do Memory.poke(memAddress +129, 14);
+            do Memory.poke(memAddress +161, 12);
+            do Memory.poke(memAddress +193, 28);
+            do Memory.poke(memAddress +225, 24);
+            do Memory.poke(memAddress +257, 56);
+            do Memory.poke(memAddress +289, 56);
+            do Memory.poke(memAddress +321, 120);
+            do Memory.poke(memAddress +353, 248);
+            do Memory.poke(memAddress +385, 248);
+            do Memory.poke(memAddress +417, 504);
+            do Memory.poke(memAddress +449, 504);
+            do Memory.poke(memAddress +481, 120);
+            do Memory.poke(memAddress +513, 28);
+            do Memory.poke(memAddress +545, 15);
+            do Memory.poke(memAddress +577, 7);
+            do Memory.poke(memAddress +609, 3);
+            return false;
+        }
+        return true;
+    }
+
+    /**erases the bird in the current location*/
+    method void erase(int location){
+    	var int memAddress; 
+        let memAddress = 16384+location;
+        // column 0
+        do Memory.poke(memAddress, 0);
+        do Memory.poke(memAddress +32, 0);
+        do Memory.poke(memAddress +64, 0);
+        do Memory.poke(memAddress +96, 0);
+        do Memory.poke(memAddress +128, 0);
+        do Memory.poke(memAddress +160, 0);
+        do Memory.poke(memAddress +192, 0);
+        do Memory.poke(memAddress +224, 0);
+        do Memory.poke(memAddress +256, 0);
+        do Memory.poke(memAddress +288, 0);
+        do Memory.poke(memAddress +320, 0);
+        do Memory.poke(memAddress +352, 0);
+        do Memory.poke(memAddress +384, 0);
+        do Memory.poke(memAddress +416, 0);
+        do Memory.poke(memAddress +448, 0);
+        do Memory.poke(memAddress +480, 0);
+        do Memory.poke(memAddress +512, 0);
+        do Memory.poke(memAddress +544, 0);
+        do Memory.poke(memAddress +576, 0);
+        do Memory.poke(memAddress +608, 0);
+        do Memory.poke(memAddress +640, 0);
+        // column 1
+        do Memory.poke(memAddress +65, 0);
+        do Memory.poke(memAddress +97, 0);
+        do Memory.poke(memAddress +129, 0);
+        do Memory.poke(memAddress +161, 0);
+        do Memory.poke(memAddress +193, 0);
+        do Memory.poke(memAddress +225, 0);
+        do Memory.poke(memAddress +257, 0);
+        do Memory.poke(memAddress +289, 0);
+        do Memory.poke(memAddress +321, 0);
+        do Memory.poke(memAddress +353, 0);
+        do Memory.poke(memAddress +385, 0);
+        do Memory.poke(memAddress +417, 0);
+        do Memory.poke(memAddress +449, 0);
+        do Memory.poke(memAddress +481, 0);
+        do Memory.poke(memAddress +513, 0);
+        do Memory.poke(memAddress +545, 0);
+        do Memory.poke(memAddress +577, 0);
+        do Memory.poke(memAddress +609, 0);
+        return;
+    }
+
+    /**disposes this bird*/
+    method void dispose() {
+        do Memory.deAlloc(this);
+        return;
+    }
+
+}

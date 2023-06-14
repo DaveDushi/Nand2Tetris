@@ -1,0 +1,17 @@
+/*    
+         HOW TO PLAY FLAPPY BIRD
+  *Tap the spacebar to make the bird fly upwards.
+  *Release the spacebar to let the bird fall.
+  *Avoid the pipes and try to fly as far as possible without crashing.
+  *Try to beat your highest score.
+  */
+class Main {
+     function void main() {
+        var Player player;
+
+        let player = Player.new();
+        do player.playGame(); //play game
+        do player.dispose(); //dispose game 
+        return;     
+     }
+}

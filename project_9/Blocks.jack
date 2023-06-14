@@ -1,0 +1,82 @@
+class Blocks {
+    field int x, y, z;
+    field int size;
+    field int gapSize;
+
+    /**constructs a block with fixed positions except for where the gap will be*/
+    constructor Blocks new(int Az) {
+        let x = 475;
+        let y = 12;
+        let z = Az;
+        let gapSize = 60;
+        let size = 36;
+        return this;
+    }
+
+    /**draws the block to the screen*/
+    method void draw() {
+        do Screen.setColor(true);
+        do Screen.drawRectangle(x, y, x + size, y + z);
+        do Screen.drawRectangle(x, y + z + gapSize, x + size, y + 243);
+        return;
+    }
+
+    /**resets the block to the beginning and moves the gap*/
+    method void reset(int random){
+        let x = 475;
+        let y = 12;
+        let z = Utils.mod((z+ random),180);
+        let gapSize = 60;
+        let size = 36;
+        return;
+        }
+
+    /**moves the block to the left*/
+    method void moveLeft() {
+        if(x = 475) { do draw();}
+        if (x > 2) {
+         do Screen.setColor(false);
+         do Screen.drawRectangle((x + size) - 1, y, x + size, y + z);
+         do Screen.drawRectangle((x + size) - 1, y + z + gapSize, x + size, y + 243);
+         let x = x - 2;
+         do Screen.setColor(true);
+         do Screen.drawRectangle(x, y, x + 1, y + z);
+         do Screen.drawRectangle(x, y + z + gapSize, x + 1, y + 243);
+        }
+        if (x < 2)  { //if block gets to the end of the screen erase
+            do erase();
+        }
+      return;
+    }
+
+    /**erases the block*/
+    method void erase() {
+        do Screen.setColor(false);
+        do Screen.drawRectangle(x, y, x + size, y + z);
+        do Screen.drawRectangle(x, y + z + gapSize, x + size, y + 243);
+        return;
+    }
+
+    /**return the y postion of the top half */
+    method int getTopY() {
+        return z + y;
+    }
+
+    /**return the y postion of the bottom half */
+    method int getBottomY() {
+        return z + y + gapSize;
+    }
+
+    /**return x*/
+    method int getX() {
+        return x;
+    }
+
+    /** Disposes this block */
+    method void dispose() {
+        do Memory.deAlloc(this);
+        return;
+    }
+    
+
+}

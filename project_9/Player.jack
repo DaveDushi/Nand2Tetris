@@ -1,0 +1,52 @@
+class Player {
+    field Game game;
+    field ScreenStatus screen; 
+    static int key;
+    static boolean start;
+    static boolean reset;
+    static boolean quit;
+     
+     /**constructs a new player to play the game*/
+    constructor Player new(){
+        let screen = ScreenStatus.new();
+        let game = Game.new();
+        let quit = false; 
+        
+        return this;
+    }
+    
+    /**player plays the game*/
+    method void playGame() {
+        while(~quit){ //run until quit is true 
+            let key = 0;
+            let start = false;
+            let reset = false;
+            do screen.start(); //print the start screen
+            do game.reset(); //reset the game
+            while(~start) { //dont start until SPACE is pressed
+                let key = Keyboard.keyPressed();
+                if (key = 32) { let start = true; }
+            }
+            do Screen.setColor(false); //clear the screen
+            do Screen.drawRectangle(0, 0, 511, 255);
+            do game.run(); //run the game 
+            do screen.gameOver(game.getScore(), game.getHighscore()); //print gameover screen
+            
+            while((~reset) & (~quit)) { //either 'r' to reset or 'q' to quit
+                let key = Keyboard.keyPressed();
+                if (key = 82) { let reset = true; }
+                if (key = 81) { let quit = true; }
+            }
+        }
+        return;
+    }
+    /**disposes this player*/
+    method void dispose() {
+        do game.dispose();
+        do screen.dispose();
+        do Memory.deAlloc(this);
+        return;
+   }
+
+
+}

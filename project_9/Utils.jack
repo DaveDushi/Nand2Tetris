@@ -1,0 +1,13 @@
+/**Utility class for functions that aren't supplied*/
+
+class Utils {
+
+    /**computes modules*/
+    function int mod(int a, int b) {
+        var int q;
+        var int r;
+        let q = (a / b);
+        let r = a - (b * q);
+        return r;
+    }
+}
